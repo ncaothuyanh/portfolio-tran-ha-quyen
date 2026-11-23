@@ -230,6 +230,17 @@ h1, h2, h3 { margin: 0; font-weight: 700; letter-spacing: -0.025em; line-height:
 }
 .stop:hover .stop__fig img { transform: scale(1.028); }
 
+.stop__fig { position: relative; }
+.stop__credit {
+  padding: 0.6rem 0.75rem;
+  border-top: 1px solid var(--line);
+  color: var(--dim);
+  font-size: 0.68rem;
+  line-height: 1.5;
+}
+.stop__credit a { color: var(--dim); text-decoration: underline; text-underline-offset: 2px; }
+.stop__credit a:hover { color: var(--accent); }
+
 /* desktop: spine down the middle, stops alternate, the year sits opposite */
 @media (min-width: 64rem) {
   .tl__rail { left: 50%; }
