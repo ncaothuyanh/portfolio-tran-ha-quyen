@@ -65,6 +65,17 @@
     });
   }
 
+  /* ---------- den roi theo con tro trong the nang luc ---------- */
+  if (!reduce && window.matchMedia("(hover:hover)").matches) {
+    [].forEach.call(document.querySelectorAll(".cap__col"), function (el) {
+      el.addEventListener("pointermove", function (ev) {
+        var r = el.getBoundingClientRect();
+        el.style.setProperty("--mx", (ev.clientX - r.left) + "px");
+        el.style.setProperty("--my", (ev.clientY - r.top) + "px");
+      });
+    });
+  }
+
   /* ---------- duong uon luon + xe container ---------- */
   var stage = document.getElementById("stage");
   var svg = document.getElementById("roadSvg");
@@ -78,6 +89,7 @@
   var VBW = 100, VBH = 1000;
   var W = 1, H = 1, len = 0;
   var cur = 0, target = 0, raf = null;
+  var samples = [];   // bang tra toa do doc theo duong, dung lai moi khung hinh
 
   function buildPath() {
     var r = stage.getBoundingClientRect();
@@ -119,6 +131,7 @@
        + ", " + ux(endX).toFixed(2) + " " + uy(endY - kk).toFixed(2)
        + ", " + ux(endX).toFixed(2) + " " + uy(endY).toFixed(2);
 
+    cacheStage();
     base.setAttribute("d", d);
     fill.setAttribute("d", d);
     len = fill.getTotalLength();
@@ -137,12 +150,22 @@
     });
 
     // bai tap ket nam ngay diem cuoi duong
-    if (depot) { depot.style.left = endX + "px"; depot.style.top = endY + "px"; }
+    if (depot) {
+      depot.style.left = endX + "px";
+      depot.style.top = endY + "px";
+      depot.style.marginLeft = "0px";
+      // Can theo TAM LAN DO chu khong phai tam ca bai, de xe dung giua lan.
+      var lane = depot.querySelector(".depot__lane");
+      if (lane) {
+        var dr = depot.getBoundingClientRect(), lr = lane.getBoundingClientRect();
+        depot.style.marginLeft = (-((lr.left + lr.width / 2) - (dr.left + dr.width / 2))) + "px";
+      }
+    }
 
     // Quang duong toi tung cham, do doc theo duong cong. Timeline sang theo
     // quang duong xe thuc su da di, khong phai theo do cao man hinh.
     var N = 900;
-    var samples = [];
+    samples = [];
     for (var j = 0; j <= N; j++) {
       var q = fill.getPointAtLength((len * j) / N);
       samples.push({ l: (len * j) / N, x: (q.x / VBW) * W, y: (q.y / VBH) * H });
@@ -158,30 +181,42 @@
     });
   }
 
-  // doi toa do tren path (don vi viewBox) sang pixel cua stage
+  // Tra toa do bang noi suy tren bang mau. Goi getPointAtLength moi khung hinh
+  // la viec nang nhat trong vong lap, nen chi lam mot lan luc dung duong.
   function ptAt(l) {
-    var p = fill.getPointAtLength(Math.max(0, Math.min(len, l)));
-    return { x: (p.x / VBW) * W, y: (p.y / VBH) * H };
+    if (!samples.length) return { x: 0, y: 0 };
+    var last = samples.length - 1;
+    var f = Math.max(0, Math.min(1, l / len)) * last;
+    var i = f | 0;
+    if (i >= last) return { x: samples[last].x, y: samples[last].y };
+    var t = f - i, a = samples[i], b = samples[i + 1];
+    return { x: a.x + (b.x - a.x) * t, y: a.y + (b.y - a.y) * t };
   }
 
-  function measure() {
+  var stageTop = 0, stageH = 1;
+  function cacheStage() {
     var r = stage.getBoundingClientRect();
-    var top = r.top + window.scrollY;
-    var h = r.height;
+    stageTop = r.top + window.scrollY;
+    stageH = r.height || 1;
+  }
+  function measure() {
     var focus = window.scrollY + window.innerHeight * 0.55;
-    var p = (focus - top) / h;
-    target = Math.max(0, Math.min(1, p));
+    target = Math.max(0, Math.min(1, (focus - stageTop) / stageH));
   }
 
   function frame() {
     // di chuyen cham va muot: moi khung chi tien 6% quang duong con lai
-    cur += (target - cur) * 0.06;
-    if (Math.abs(target - cur) < 0.0002) cur = target;
+    var dangChay = Math.abs(target - cur) > 0.00015;
+    if (dangChay) cur += (target - cur) * 0.06;
+    else cur = target;
 
     var l = cur * len;
     var a = ptAt(l);
-    var b = ptAt(l + 1.2);
-    var ang = Math.atan2(b.y - a.y, b.x - a.x) * 180 / Math.PI - 90;
+    // cua so lay mau luon nam tron trong duong, nen o cuoi duong van co huong
+    var d = 2;
+    var l0 = Math.max(0, Math.min(len - d, l - d * 0.5));
+    var p0 = ptAt(l0), p1 = ptAt(l0 + d);
+    var ang = Math.atan2(p1.y - p0.y, p1.x - p0.x) * 180 / Math.PI - 90;
 
     if (truck) {
       truck.style.transform = "translate3d(" + a.x.toFixed(1) + "px," + a.y.toFixed(1) + "px,0) rotate(" + ang.toFixed(1) + "deg)";
@@ -193,12 +228,16 @@
     });
     if (depot) depot.classList.toggle("on", cur > 0.985);
 
-    raf = requestAnimationFrame(frame);
+    if (dangChay) raf = requestAnimationFrame(frame);
+    else raf = null;
   }
+
+  function kick() { if (!raf && !reduce) raf = requestAnimationFrame(frame); }
 
   function onScroll() {
     sweepReveal();
     measure();
+    kick();
     if (barFill) {
       var max = document.documentElement.scrollHeight - window.innerHeight;
       barFill.style.transform = "scaleX(" + (max > 0 ? window.scrollY / max : 0).toFixed(4) + ")";
@@ -213,8 +252,8 @@
       cur = 1;
       fill.style.strokeDashoffset = 0;
       stops.forEach(function (s) { s.classList.add("on"); });
-    } else if (!raf) {
-      raf = requestAnimationFrame(frame);
+    } else {
+      kick();
     }
   }
 
@@ -226,7 +265,7 @@
   });
   window.addEventListener("load", boot);
   [].forEach.call(document.images, function (img) {
-    if (!img.complete) img.addEventListener("load", function () { buildPath(); measure(); }, { once: true });
+    if (!img.complete) img.addEventListener("load", function () { buildPath(); measure(); kick(); }, { once: true });
   });
   boot();
 })();

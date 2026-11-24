@@ -132,10 +132,10 @@ h1,h2,h3{margin:0;font-weight:700;letter-spacing:-.028em;line-height:1.08;text-w
   background:color-mix(in srgb,var(--ink-3) 88%,transparent);backdrop-filter:blur(6px);
   box-shadow:0 18px 44px rgb(0 0 0/.34);transition:transform .45s cubic-bezier(.22,1,.36,1),border-color .45s}
 .card:hover{transform:translateY(-5px);border-color:color-mix(in srgb,var(--accent) 48%,var(--line))}
-.card__year{position:absolute;top:-.55em;left:.5rem;font-size:clamp(3rem,7vw,5rem);font-weight:700;
+.card__year{position:absolute;top:-.62em;left:.4rem;transition:color .55s,-webkit-text-stroke-color .55s,filter .55s;font-size:clamp(3.6rem,8.5vw,6.2rem);font-weight:700;
   line-height:1;letter-spacing:-.05em;color:transparent;-webkit-text-stroke:1.5px color-mix(in srgb,var(--dim) 48%,transparent);
   transition:color .55s,-webkit-text-stroke-color .55s;pointer-events:none}
-.stop.on .card__year{color:color-mix(in srgb,var(--accent) 16%,transparent);-webkit-text-stroke-color:var(--accent)}
+.stop.on .card__year{color:color-mix(in srgb,var(--accent) 22%,transparent);-webkit-text-stroke-color:var(--accent);filter:drop-shadow(0 0 16px color-mix(in srgb,var(--accent) 42%,transparent))}
 @supports not (-webkit-text-stroke:1px red){.card__year{color:color-mix(in srgb,var(--dim) 42%,transparent)}}
 
 .card__when{display:flex;flex-wrap:wrap;align-items:center;gap:.7rem;margin:0;color:var(--accent);
@@ -210,18 +210,6 @@ h1,h2,h3{margin:0;font-weight:700;letter-spacing:-.028em;line-height:1.08;text-w
 }
 
 
-/* ---------- bai tap ket cuoi duong ---------- */
-.depot{position:absolute;z-index:1;display:grid;justify-items:center;gap:.7rem;
-  transform:translate(-50%,-50%);pointer-events:none}
-.depot__bays{position:relative;display:flex;align-items:flex-end;gap:.55rem;
-  padding:.85rem 1rem;border:1px dashed color-mix(in srgb,var(--dim) 36%,transparent);border-radius:12px;
-  background:color-mix(in srgb,var(--ink-3) 55%,transparent)}
-.depot__cont{opacity:var(--o,.4)}
-.depot__slot{width:30px;height:48px;border:1px dashed color-mix(in srgb,var(--accent) 52%,transparent);
-  border-radius:3px;background:color-mix(in srgb,var(--accent) 7%,transparent)}
-.depot__label{color:var(--dim);font-size:.62rem;font-weight:600;letter-spacing:.17em;text-transform:uppercase}
-.depot.on .depot__slot{border-color:transparent;background:transparent}
-
 /* ---------- diem nhan cho muc nang luc ---------- */
 .cap__col{position:relative;overflow:hidden}
 .cap__col::before{position:absolute;top:0;left:0;height:2px;width:0;content:"";
@@ -245,4 +233,42 @@ h1,h2,h3{margin:0;font-weight:700;letter-spacing:-.028em;line-height:1.08;text-w
   .cap__col::before,.cap__n,.cap__col li,.cap__col li::before{transition:none}
   .js .cap__col.reveal{transition-delay:0ms}
   .depot{display:none}
+}
+
+/* ---------- den xe chieu sang phia truoc ---------- */
+.truck__beam{position:absolute;left:50%;top:86%;width:132px;height:170px;margin-left:-66px;
+  background:radial-gradient(ellipse 58% 100% at 50% 0%,
+    color-mix(in srgb,#fff4d2 34%,transparent) 0%,
+    color-mix(in srgb,#fff4d2 13%,transparent) 42%,
+    transparent 74%);
+  clip-path:polygon(40% 0%,60% 0%,100% 100%,0% 100%);
+  filter:blur(3px);opacity:.85;pointer-events:none}
+
+/* ---------- bai do container cuoi duong ---------- */
+.depot{position:absolute;z-index:1;transform:translate(-50%,-50%);pointer-events:none}
+.depot__bays{display:grid;grid-template-columns:auto 58px auto;align-items:center;gap:.6rem;
+  padding:.9rem 1rem;border:1px dashed color-mix(in srgb,var(--dim) 32%,transparent);border-radius:12px;
+  background:color-mix(in srgb,var(--ink-3) 52%,transparent)}
+.depot__side{display:grid;gap:.4rem;justify-items:center}
+.depot__cont{opacity:var(--o,.35)}
+.depot__lane{width:46px;height:88px;border-radius:4px;
+  border:1px dashed color-mix(in srgb,var(--accent) 48%,transparent);
+  background:repeating-linear-gradient(180deg,
+    color-mix(in srgb,var(--accent) 16%,transparent) 0 10px,
+    transparent 10px 20px);
+  transition:border-color .5s,background .5s}
+.depot.on .depot__lane{border-color:color-mix(in srgb,var(--accent) 20%,transparent);background:transparent}
+
+/* ---------- den roi theo con tro cho muc nang luc ---------- */
+.cap__col::after{position:absolute;inset:0;content:"";opacity:0;pointer-events:none;
+  background:radial-gradient(260px circle at var(--mx,50%) var(--my,50%),
+    color-mix(in srgb,var(--accent) 14%,transparent) 0%,transparent 68%);
+  transition:opacity .4s}
+.cap__col:hover::after{opacity:1}
+.cap__col>*{position:relative;z-index:1}
+
+@media (prefers-reduced-motion:reduce){
+  .truck__beam{display:none}
+  .cap__col::after{display:none}
+  .depot__lane{transition:none}
 }
