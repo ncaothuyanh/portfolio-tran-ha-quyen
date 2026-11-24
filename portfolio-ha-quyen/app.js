@@ -71,6 +71,7 @@
   var base = document.getElementById("roadBase");
   var fill = document.getElementById("roadFill");
   var truck = document.getElementById("truck");
+  var depot = document.getElementById("depot");
   var stops = [].slice.call(document.querySelectorAll("[data-stop]"));
   if (!stage || !svg || !base || !fill) return;
 
@@ -109,12 +110,14 @@
          + ", " + ux(baseX).toFixed(2) + " " + uy(y).toFixed(2);
       prevY = y;
     }
-    // doan duoi cung chay het chieu cao
+    // doan cuoi: vong vao giua va dung lai tren bai tap ket
     var endDir = (ys.length % 2 === 0) ? 1 : -1;
-    var kk = (H - prevY) * 0.42;
-    d += " C " + ux(baseX + amp * endDir * 0.55).toFixed(2) + " " + uy(prevY + kk).toFixed(2)
-       + ", " + ux(baseX).toFixed(2) + " " + uy(H - kk).toFixed(2)
-       + ", " + ux(baseX).toFixed(2) + " " + uy(H).toFixed(2);
+    var endX = W / 2;
+    var endY = H - (parseFloat(getComputedStyle(stage).paddingBottom) || 0) * 0.52;
+    var kk = (endY - prevY) * 0.45;
+    d += " C " + ux(baseX + amp * endDir * 0.5).toFixed(2) + " " + uy(prevY + kk).toFixed(2)
+       + ", " + ux(endX).toFixed(2) + " " + uy(endY - kk).toFixed(2)
+       + ", " + ux(endX).toFixed(2) + " " + uy(endY).toFixed(2);
 
     base.setAttribute("d", d);
     fill.setAttribute("d", d);
@@ -131,6 +134,27 @@
       dot.style.left = (baseX - (sr.left - r.left)) + "px";
       dot.style.top = (ys[i] - (sr.top - r.top)) + "px";
       dot.dataset.y = ys[i];
+    });
+
+    // bai tap ket nam ngay diem cuoi duong
+    if (depot) { depot.style.left = endX + "px"; depot.style.top = endY + "px"; }
+
+    // Quang duong toi tung cham, do doc theo duong cong. Timeline sang theo
+    // quang duong xe thuc su da di, khong phai theo do cao man hinh.
+    var N = 900;
+    var samples = [];
+    for (var j = 0; j <= N; j++) {
+      var q = fill.getPointAtLength((len * j) / N);
+      samples.push({ l: (len * j) / N, x: (q.x / VBW) * W, y: (q.y / VBH) * H });
+    }
+    stops.forEach(function (s, i) {
+      var best = Infinity, bl = 0;
+      for (var j = 0; j < samples.length; j++) {
+        var dx = samples[j].x - baseX, dy = samples[j].y - ys[i];
+        var dist = dx * dx + dy * dy;
+        if (dist < best) { best = dist; bl = samples[j].l; }
+      }
+      s.dataset.len = bl;
     });
   }
 
@@ -165,11 +189,9 @@
     fill.style.strokeDashoffset = (len * (1 - cur)).toFixed(1);
 
     stops.forEach(function (s) {
-      var dot = s.querySelector(".stop__dot");
-      if (!dot) return;
-      var dy = parseFloat(dot.dataset.y || "0");
-      s.classList.toggle("on", a.y >= dy - 4);
+      s.classList.toggle("on", l >= parseFloat(s.dataset.len || "0") - 4);
     });
+    if (depot) depot.classList.toggle("on", cur > 0.985);
 
     raf = requestAnimationFrame(frame);
   }
