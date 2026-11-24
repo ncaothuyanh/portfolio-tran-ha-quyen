@@ -1,0 +1,210 @@
+/* Tran Ha Quyen, portfolio ban uon luon.
+   Mot ho chu duy nhat, nhung san trong thu muc, nen dau tieng Viet khong bao
+   gio roi ve font thieu dau. */
+
+@font-face { font-family:"BVP"; src:url("fonts/BeVietnamPro-400.ttf") format("truetype"); font-weight:400; font-style:normal; font-display:swap; }
+@font-face { font-family:"BVP"; src:url("fonts/BeVietnamPro-600.ttf") format("truetype"); font-weight:600; font-style:normal; font-display:swap; }
+@font-face { font-family:"BVP"; src:url("fonts/BeVietnamPro-700.ttf") format("truetype"); font-weight:700; font-style:normal; font-display:swap; }
+
+:root{
+  --ink:#0b0e12; --ink-2:#11161d; --ink-3:#171d26; --line:#242c38;
+  --paper:#eef1f5; --dim:#93a0b0;
+  --accent:#3e9e80; --accent-2:#5fc7a4; --accent-dim:#2e7a62;
+  --page:72rem; --gutter:clamp(1.15rem,4.5vw,3.5rem);
+  --font:"BVP",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:5rem}
+body{
+  margin:0;background:var(--ink);color:var(--paper);font-family:var(--font);
+  font-size:1rem;line-height:1.62;-webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+h1,h2,h3{margin:0;font-weight:700;letter-spacing:-.028em;line-height:1.08;text-wrap:balance}
+::selection{background:var(--accent);color:var(--ink)}
+.wrap{width:min(var(--page),100%);margin-inline:auto;padding-inline:var(--gutter)}
+
+/* thanh tien do cuon o canh tren */
+.scrollbar{position:fixed;inset:0 0 auto 0;height:3px;z-index:60;background:transparent;pointer-events:none}
+.scrollbar i{display:block;height:100%;width:100%;transform:scaleX(0);transform-origin:left center;
+  background:linear-gradient(90deg,var(--accent-dim),var(--accent-2))}
+
+.eyebrow{margin:0 0 .9rem;color:var(--accent);font-size:.7rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase}
+.head{max-width:42rem;margin-bottom:clamp(2.5rem,5vw,3.75rem)}
+.head h2{font-size:clamp(1.75rem,3.8vw,2.7rem)}
+.head__note{margin:1.1rem 0 0;color:var(--dim)}
+
+/* hien dan khi cuon toi, chi bat khi co JS */
+.js .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)}
+.js .reveal.in{opacity:1;transform:none}
+
+.btn{display:inline-flex;align-items:center;min-height:2.95rem;padding:0 1.45rem;border:1px solid var(--line);
+  border-radius:999px;color:var(--paper);font-size:.86rem;font-weight:600;text-decoration:none;
+  transition:border-color .2s,background-color .2s,color .2s,transform .18s}
+.btn:hover{border-color:var(--accent);color:var(--accent)}
+.btn--solid{border-color:var(--accent);background:var(--accent);color:var(--ink)}
+.btn--solid:hover{background:var(--accent-2);border-color:var(--accent-2);color:var(--ink)}
+.btn:active{transform:translateY(1px) scale(.985)}
+.btn:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+.bar{position:sticky;top:0;z-index:50;border-bottom:1px solid var(--line);
+  background:color-mix(in srgb,var(--ink) 80%,transparent);backdrop-filter:blur(14px)}
+.bar__in{display:flex;min-height:4.1rem;align-items:center;gap:1.25rem}
+.bar__mark{display:flex;align-items:center;gap:.55rem;font-size:.92rem;font-weight:700;text-decoration:none;white-space:nowrap}
+.bar__mark span{display:grid;place-items:center;width:1.75rem;height:1.75rem;border-radius:50%;
+  background:linear-gradient(135deg,var(--accent),var(--accent-dim));color:var(--ink);font-size:.62rem;letter-spacing:.02em}
+.bar__nav{display:none;margin-left:auto;gap:1.7rem}
+.bar__nav a{position:relative;color:var(--dim);font-size:.85rem;font-weight:500;text-decoration:none;transition:color .2s}
+.bar__nav a::after{position:absolute;left:0;bottom:-6px;width:0;height:1px;background:var(--accent);content:"";transition:width .3s cubic-bezier(.22,1,.36,1)}
+.bar__nav a:hover{color:var(--accent)}
+.bar__nav a:hover::after{width:100%}
+.bar__cta{margin-left:auto;min-height:2.5rem;padding:0 1.05rem}
+@media (min-width:56rem){.bar__nav{display:flex}.bar__cta{margin-left:0}}
+
+/* ---------- hero ---------- */
+.hero{position:relative;padding:clamp(3rem,7vw,6rem) 0 clamp(3.5rem,7vw,6rem);overflow:hidden}
+.hero__glow{position:absolute;top:-28%;right:-12%;width:min(46rem,105vw);aspect-ratio:1;border-radius:50%;
+  background:radial-gradient(circle,color-mix(in srgb,var(--accent) 24%,transparent) 0%,transparent 66%);
+  filter:blur(18px);pointer-events:none}
+.hero__in{position:relative;display:grid;gap:clamp(2.5rem,6vw,4.5rem);align-items:center;grid-template-columns:1fr}
+.hero__name{font-size:clamp(2.9rem,10.5vw,5.4rem);letter-spacing:-.045em}
+.hero__line{max-width:36ch;margin:1.5rem 0 0;color:var(--dim);font-size:clamp(1.02rem,1.5vw,1.14rem)}
+
+.stats{display:grid;gap:1px;margin:2.2rem 0 0;border:1px solid var(--line);background:var(--line);grid-template-columns:repeat(3,1fr)}
+.stats>div{padding:.95rem .7rem;background:var(--ink-2)}
+.stats dt{color:var(--dim);font-size:.6rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase}
+.stats dd{margin:.35rem 0 0;font-size:clamp(1.3rem,3.4vw,1.75rem);font-weight:700;letter-spacing:-.03em;
+  background:linear-gradient(135deg,var(--paper),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero__cta{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:2.2rem}
+
+/* avatar la diem nhan: hai vong xoay nguoc chieu + anh tron + chip noi */
+.avatar{position:relative;margin:0;display:grid;place-items:center;
+  width:min(21rem,78vw);aspect-ratio:1;justify-self:center}
+.avatar__ring{position:absolute;inset:0;border-radius:50%;
+  background:conic-gradient(from 0deg,transparent 0 58%,var(--accent) 72%,var(--accent-2) 84%,transparent 96%);
+  -webkit-mask:radial-gradient(circle,transparent 61%,#000 62%);mask:radial-gradient(circle,transparent 61%,#000 62%);
+  animation:spin 14s linear infinite}
+.avatar__ring--2{inset:-7%;opacity:.4;
+  background:conic-gradient(from 180deg,transparent 0 64%,var(--accent-2) 78%,transparent 92%);
+  -webkit-mask:radial-gradient(circle,transparent 66%,#000 67%);mask:radial-gradient(circle,transparent 66%,#000 67%);
+  animation:spin 22s linear infinite reverse}
+@keyframes spin{to{transform:rotate(360deg)}}
+.avatar__photo{position:relative;width:78%;aspect-ratio:1;border-radius:50%;overflow:hidden;
+  border:1px solid var(--line);box-shadow:0 26px 60px rgb(0 0 0/.55);animation:float 7s ease-in-out infinite}
+.avatar__photo img{width:100%;height:100%;object-fit:cover;object-position:50% 22%}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-11px)}}
+.avatar__chip{position:absolute;padding:.42rem .8rem;border:1px solid var(--line);border-radius:999px;
+  background:color-mix(in srgb,var(--ink-2) 88%,transparent);backdrop-filter:blur(8px);
+  font-size:.66rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap}
+.avatar__chip--a{top:6%;left:-2%;animation:float 6s ease-in-out infinite}
+.avatar__chip--b{top:46%;right:-6%;animation:float 8s ease-in-out .6s infinite}
+.avatar__chip--c{bottom:7%;left:4%;animation:float 7s ease-in-out 1.2s infinite}
+@media (min-width:62rem){
+  .hero__in{grid-template-columns:1.1fr .9fr}
+  .avatar{width:min(26rem,40vw)}
+}
+
+/* ---------- duong uon luon ---------- */
+.road{padding:clamp(3.5rem,8vw,6.5rem) 0 clamp(4rem,9vw,7rem);border-top:1px solid var(--line);background:var(--ink-2)}
+.road__stage{position:relative;width:min(var(--page),100%);margin-inline:auto;padding-inline:var(--gutter)}
+.road__svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}
+.road__base{stroke:var(--line);stroke-width:2.2;stroke-linecap:round;vector-effect:non-scaling-stroke}
+.road__fill{stroke:url(#g);stroke:var(--accent);stroke-width:2.6;stroke-linecap:round;vector-effect:non-scaling-stroke;
+  filter:drop-shadow(0 0 7px color-mix(in srgb,var(--accent) 55%,transparent))}
+
+.truck{position:absolute;top:0;left:0;z-index:2;width:40px;height:95px;margin:-47px 0 0 -20px;
+  will-change:transform;filter:drop-shadow(0 10px 18px rgb(0 0 0/.6))}
+.truck svg{display:block}
+
+.stops{position:relative;z-index:1;margin:0;padding:0;list-style:none}
+.stop{position:relative;padding-bottom:clamp(3rem,7vw,6rem)}
+.stop:last-child{padding-bottom:0}
+.stop__dot{position:absolute;z-index:3;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;
+  border:2px solid var(--line);background:var(--ink-2);
+  transition:border-color .4s,background-color .4s,box-shadow .4s,transform .4s}
+.stop.on .stop__dot{border-color:var(--accent);background:var(--accent);transform:scale(1.15);
+  box-shadow:0 0 0 7px color-mix(in srgb,var(--accent) 16%,transparent)}
+.stop--study .stop__dot{border-style:dashed}
+.stop--study.on .stop__dot{border-style:solid;background:var(--ink-2)}
+
+.card{position:relative;padding:clamp(1.3rem,3vw,2rem);border:1px solid var(--line);border-radius:14px;
+  background:color-mix(in srgb,var(--ink-3) 88%,transparent);backdrop-filter:blur(6px);
+  box-shadow:0 18px 44px rgb(0 0 0/.34);transition:transform .45s cubic-bezier(.22,1,.36,1),border-color .45s}
+.card:hover{transform:translateY(-5px);border-color:color-mix(in srgb,var(--accent) 48%,var(--line))}
+.card__year{position:absolute;top:-.55em;right:.5rem;font-size:clamp(3rem,7vw,5rem);font-weight:700;
+  line-height:1;letter-spacing:-.05em;color:transparent;-webkit-text-stroke:1.5px color-mix(in srgb,var(--dim) 48%,transparent);
+  transition:color .55s,-webkit-text-stroke-color .55s;pointer-events:none}
+.stop.on .card__year{color:color-mix(in srgb,var(--accent) 16%,transparent);-webkit-text-stroke-color:var(--accent)}
+@supports not (-webkit-text-stroke:1px red){.card__year{color:color-mix(in srgb,var(--dim) 42%,transparent)}}
+
+.card__when{display:flex;flex-wrap:wrap;align-items:center;gap:.7rem;margin:0;color:var(--accent);
+  font-size:.78rem;font-weight:700;letter-spacing:.07em}
+.tag{padding:.18rem .58rem;border:1px solid var(--line);border-radius:999px;color:var(--dim);
+  font-size:.6rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase}
+.card__role{margin:.6rem 0 0;font-size:clamp(1.3rem,2.7vw,1.85rem)}
+.card__org{margin:.32rem 0 0;color:var(--dim);font-size:.9rem}
+.card__lead{margin:1.2rem 0 0;padding-left:1rem;border-left:2px solid var(--accent);
+  font-size:clamp(1rem,1.9vw,1.22rem);line-height:1.45}
+.card__lead b{font-weight:700;color:var(--accent)}
+.card__what{margin:1.2rem 0 0;padding:0;list-style:none}
+.card__what li{position:relative;padding-left:1.1rem;color:var(--dim);font-size:.91rem;line-height:1.62}
+.card__what li+li{margin-top:.5rem}
+.card__what li::before{position:absolute;top:.66em;left:0;width:6px;height:1px;background:var(--accent);content:""}
+.card__fig{margin:1.35rem 0 0;overflow:hidden;border-radius:10px;border:1px solid var(--line)}
+.card__fig img{width:100%;aspect-ratio:16/10;object-fit:cover;transition:transform .8s cubic-bezier(.22,1,.36,1)}
+.card:hover .card__fig img{transform:scale(1.04)}
+.card__fig figcaption{padding:.55rem .7rem;border-top:1px solid var(--line);color:var(--dim);font-size:.66rem;line-height:1.5}
+.card__fig figcaption a{color:var(--dim);text-decoration:underline;text-underline-offset:2px}
+.card__fig figcaption a:hover{color:var(--accent)}
+
+/* dien thoai: duong chay sat le trai, the day du be ngang con lai */
+.stop{padding-left:3.6rem}
+.stop__dot{left:1.15rem}
+/* desktop: the so le hai ben duong */
+@media (min-width:64rem){
+  .stop{padding-left:0}
+  .stop__dot{left:50%}
+  .card{width:calc(50% - 3.4rem)}
+  .stop:nth-child(even) .card{margin-left:auto}
+}
+
+/* ---------- nang luc ---------- */
+.cap{padding:clamp(3.5rem,8vw,6rem) 0;border-top:1px solid var(--line)}
+.cap__grid{display:grid;gap:1rem;grid-template-columns:1fr}
+.cap__col{padding:clamp(1.4rem,2.8vw,2rem);border:1px solid var(--line);border-radius:14px;background:var(--ink-2);
+  transition:transform .45s cubic-bezier(.22,1,.36,1),border-color .45s}
+.cap__col:hover{transform:translateY(-4px);border-color:color-mix(in srgb,var(--accent) 45%,var(--line))}
+.cap__col h3{padding-bottom:.85rem;border-bottom:1px solid var(--line);font-size:1rem}
+.cap__col ul{margin:1rem 0 0;padding:0;list-style:none}
+.cap__col li{position:relative;padding-left:1.1rem;color:var(--dim);font-size:.9rem;line-height:1.6}
+.cap__col li+li{margin-top:.55rem}
+.cap__col li::before{position:absolute;top:.64em;left:0;width:6px;height:1px;background:var(--accent);content:""}
+@media (min-width:48rem){.cap__grid{grid-template-columns:repeat(2,1fr)}}
+
+/* ---------- lien he ---------- */
+.ct{position:relative;padding:clamp(3.5rem,8vw,6.5rem) 0;border-top:1px solid var(--line);
+  background:radial-gradient(120% 90% at 80% 0%,color-mix(in srgb,var(--accent) 12%,transparent) 0%,transparent 60%)}
+.ct__in{display:grid;gap:clamp(2rem,5vw,4rem);align-items:start;grid-template-columns:1fr}
+.ct__say{max-width:16ch;font-size:clamp(1.85rem,4.6vw,3rem);letter-spacing:-.034em}
+.ct__rows{margin:0;border-top:1px solid var(--line)}
+.ct__rows>div{display:grid;gap:.25rem;padding:1.15rem 0;border-bottom:1px solid var(--line)}
+.ct__rows dt{color:var(--dim);font-size:.62rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase}
+.ct__rows dd{margin:0;font-size:clamp(1.02rem,2vw,1.3rem);font-weight:600}
+.ct__rows a{border-bottom:1px solid var(--line);text-decoration:none;transition:border-color .2s,color .2s}
+.ct__rows a:hover{border-bottom-color:var(--accent);color:var(--accent)}
+.ct__rows a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+@media (min-width:60rem){.ct__in{grid-template-columns:1fr 1fr}}
+
+.ft{padding:1.7rem 0 2.4rem;border-top:1px solid var(--line)}
+.ft__in{display:flex;flex-wrap:wrap;gap:.4rem 1.5rem;justify-content:space-between}
+.ft p{margin:0;color:var(--dim);font-size:.72rem;letter-spacing:.11em;text-transform:uppercase}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .js .reveal{opacity:1;transform:none;transition:none}
+  .avatar__ring,.avatar__ring--2,.avatar__photo,.avatar__chip{animation:none}
+  .truck{display:none}
+  .btn,.card,.cap__col,.card__fig img,.stop__dot,.card__year,.ct__rows a,.bar__nav a::after{transition:none}
+  .stop .stop__dot{border-color:var(--accent);background:var(--accent)}
+}
