@@ -159,20 +159,20 @@ h1,h2,h3{margin:0;font-weight:700;letter-spacing:-.028em;line-height:1.08;text-w
 .card__fig figcaption a:hover{color:var(--accent)}
 
 /* dien thoai: duong chay sat le trai, the day du be ngang con lai */
-.stop{padding-left:3.6rem}
+.stop{padding-left:4.2rem}
 .stop__dot{left:1.15rem}
 /* desktop: the so le hai ben duong */
 @media (min-width:64rem){
   .stop{padding-left:0}
   .stop__dot{left:50%}
-  .card{width:calc(50% - 3.4rem)}
+  .card{width:min(calc(44% - 1rem),29rem)}
   .stop:nth-child(even) .card{margin-left:auto}
 }
 
 /* ---------- nang luc ---------- */
 .cap{padding:clamp(3.5rem,8vw,6rem) 0;border-top:1px solid var(--line)}
 .cap__grid{display:grid;gap:1rem;grid-template-columns:1fr}
-.cap__col{padding:clamp(1.4rem,2.8vw,2rem);border:1px solid var(--line);border-radius:14px;background:var(--ink-2);
+.cap__col{padding:clamp(1.6rem,3vw,2.2rem);border:1px solid var(--line);border-radius:14px;background:var(--ink-2);
   transition:transform .45s cubic-bezier(.22,1,.36,1),border-color .45s}
 .cap__col:hover{transform:translateY(-4px);border-color:color-mix(in srgb,var(--accent) 45%,var(--line))}
 .cap__col h3{padding-bottom:.85rem;border-bottom:1px solid var(--line);font-size:1rem}
@@ -215,10 +215,15 @@ h1,h2,h3{margin:0;font-weight:700;letter-spacing:-.028em;line-height:1.08;text-w
 .cap__col::before{position:absolute;top:0;left:0;height:2px;width:0;content:"";
   background:linear-gradient(90deg,var(--accent),var(--accent-2));transition:width .55s cubic-bezier(.22,1,.36,1)}
 .cap__col:hover::before,.cap__col:focus-within::before{width:100%}
-.cap__col h3{display:flex;align-items:baseline;gap:.65rem}
-.cap__n{font-size:.72rem;font-weight:700;letter-spacing:.1em;color:transparent;
-  -webkit-text-stroke:1px color-mix(in srgb,var(--accent) 85%,transparent);transition:color .45s}
-.cap__col:hover .cap__n{color:color-mix(in srgb,var(--accent) 40%,transparent)}
+.cap__n{position:absolute;top:-.3em;right:.35rem;z-index:0;
+  font-size:clamp(3.2rem,7vw,5rem);font-weight:700;line-height:1;letter-spacing:-.05em;
+  color:transparent;-webkit-text-stroke:1.5px color-mix(in srgb,var(--dim) 42%,transparent);
+  transition:color .5s,-webkit-text-stroke-color .5s,filter .5s,transform .6s cubic-bezier(.22,1,.36,1);
+  pointer-events:none}
+.cap__col:hover .cap__n{color:color-mix(in srgb,var(--accent) 20%,transparent);
+  -webkit-text-stroke-color:var(--accent);transform:translateY(-4px) scale(1.04);
+  filter:drop-shadow(0 0 18px color-mix(in srgb,var(--accent) 45%,transparent))}
+@supports not (-webkit-text-stroke:1px red){.cap__n{color:color-mix(in srgb,var(--dim) 36%,transparent)}}
 .cap__col li{transition:color .3s,transform .3s cubic-bezier(.22,1,.36,1)}
 .cap__col li::before{transition:width .3s cubic-bezier(.22,1,.36,1)}
 .cap__col:hover li{color:color-mix(in srgb,var(--paper) 82%,var(--dim))}
