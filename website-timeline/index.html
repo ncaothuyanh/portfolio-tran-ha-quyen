@@ -23,9 +23,10 @@
   <div class="wrap bar__in">
     <a class="bar__mark" href="#top">Trần Hạ Quyên</a>
     <nav class="bar__nav" aria-label="Mục lục">
-      <a href="#nguyen-tac">Nguyên tắc</a>
+      <a href="#gioi-thieu">Giới thiệu</a>
       <a href="#hanh-trinh">Hành trình</a>
       <a href="#nang-luc">Năng lực</a>
+      <a href="#nguyen-tac">Nguyên tắc</a>
       <a href="#hoc-van">Học vấn</a>
     </nav>
     <a class="btn bar__cta" href="#lien-he">Liên hệ</a>
@@ -52,12 +53,13 @@
       </div>
       <figure class="hero__fig">
         <img src="assets/headshot.jpg" alt="Chân dung Trần Hạ Quyên" width="900" height="1195" fetchpriority="high" decoding="async">
+        <figcaption class="hero__cap"><span>Cần Thơ</span><i aria-hidden="true"></i><span>Hồ sơ năng lực</span></figcaption>
       </figure>
     </div>
   </section>
 
-  <!-- Gioi thieu -->
-  <section class="intro">
+  <!-- 1. Gioi thieu -->
+  <section class="intro" id="gioi-thieu">
     <div class="wrap intro__grid">
       <p class="eyebrow">Giới thiệu</p>
       <div class="intro__body">
@@ -68,43 +70,12 @@
     </div>
   </section>
 
-  <!-- Nguyen tac lam viec -->
-  <section class="rules" id="nguyen-tac">
-    <div class="wrap">
-      <div class="head">
-        <p class="eyebrow">Nguyên tắc làm việc</p>
-        <h2>Bốn điều tôi giữ trong mọi lô hàng</h2>
-      </div>
-      <ol class="rules__list">
-        <li class="rule">
-          <span class="rule__n" aria-hidden="true">01</span>
-          <h3>Mỗi bước có mốc thời gian riêng</h3>
-          <p>Đặt chỗ, chứng từ, kho, vận chuyển đều có hạn của nó. Bước trước trễ thì bước sau biết ngay, không đợi tới lúc hàng ra cảng mới phát hiện.</p>
-        </li>
-        <li class="rule">
-          <span class="rule__n" aria-hidden="true">02</span>
-          <h3>Số liệu khớp rồi mới cho hàng đi</h3>
-          <p>Chứng từ được đối chiếu với thực tế hàng hóa và số liệu tồn kho. Còn lệch thì còn kiểm, chưa xác nhận.</p>
-        </li>
-        <li class="rule">
-          <span class="rule__n" aria-hidden="true">03</span>
-          <h3>Vướng mắc báo sớm, kèm phương án</h3>
-          <p>Phát sinh trong quá trình vận hành được thông báo ngay khi thấy, cùng với hướng xử lý, thay vì để dồn đến hạn chót.</p>
-        </li>
-        <li class="rule">
-          <span class="rule__n" aria-hidden="true">04</span>
-          <h3>Theo lô hàng tới khi giao xong</h3>
-          <p>Trách nhiệm không dừng ở lúc bàn giao cho hãng vận chuyển. Tôi theo tình trạng lô hàng tới điểm giao cuối cùng.</p>
-        </li>
-      </ol>
-    </div>
-  </section>
-
+  <!-- 2. Hanh trinh -->
   <section class="tl" id="hanh-trinh">
     <div class="wrap">
       <div class="head">
         <p class="eyebrow">Hành trình</p>
-        <h2>Từ giảng đường tới mỗi chặng đường</h2>
+        <h2>Từ giảng đường tới <span class="hl">mỗi chặng đường</span></h2>
         <p class="head__note">Bắt đầu ở giảng đường Đại Học cho đến mỗi công việc mà tôi đi qua. Tất cả đều xây dựng nên uy tín và trách nhiệm của tôi bây giờ.</p>
       </div>
 
@@ -130,6 +101,7 @@
               <circle cx="13" cy="96.5" r="1.9" fill="#fff4d2"/>
               <circle cx="31" cy="96.5" r="1.9" fill="#fff4d2"/>
             </svg>
+            <span class="tl__beam" aria-hidden="true"></span>
           </div>
         </div>
         <ol class="tl__list">
@@ -211,11 +183,12 @@
     </div>
   </section>
 
+  <!-- 3. Nang luc -->
   <section class="cap" id="nang-luc">
     <div class="wrap">
       <div class="head">
         <p class="eyebrow">Năng lực</p>
-        <h2>Những việc tôi làm thành thạo</h2>
+        <h2>Những việc tôi làm <span class="hl">thành thạo</span></h2>
       </div>
       <div class="cap__cols">
         <div class="cap__col">
@@ -254,11 +227,44 @@
     </div>
   </section>
 
+  <!-- 4. Nguyen tac lam viec -->
+  <section class="rules" id="nguyen-tac">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">Nguyên tắc làm việc</p>
+        <h2>Bốn điều tôi <span class="hl">giữ</span> trong mọi lô hàng</h2>
+      </div>
+      <ol class="rules__list">
+        <li class="rule">
+          <span class="rule__n" aria-hidden="true">01</span>
+          <h3>Mỗi bước có mốc thời gian riêng</h3>
+          <p>Đặt chỗ, chứng từ, kho, vận chuyển đều có hạn của nó. Bước trước trễ thì bước sau biết ngay, không đợi tới lúc hàng ra cảng mới phát hiện.</p>
+        </li>
+        <li class="rule">
+          <span class="rule__n" aria-hidden="true">02</span>
+          <h3>Số liệu khớp rồi mới cho hàng đi</h3>
+          <p>Chứng từ được đối chiếu với thực tế hàng hóa và số liệu tồn kho. Còn lệch thì còn kiểm, chưa xác nhận.</p>
+        </li>
+        <li class="rule">
+          <span class="rule__n" aria-hidden="true">03</span>
+          <h3>Vướng mắc báo sớm, kèm phương án</h3>
+          <p>Phát sinh trong quá trình vận hành được thông báo ngay khi thấy, cùng với hướng xử lý, thay vì để dồn đến hạn chót.</p>
+        </li>
+        <li class="rule">
+          <span class="rule__n" aria-hidden="true">04</span>
+          <h3>Theo lô hàng tới khi giao xong</h3>
+          <p>Trách nhiệm không dừng ở lúc bàn giao cho hãng vận chuyển. Tôi theo tình trạng lô hàng tới điểm giao cuối cùng.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- 5. Hoc van va chung chi -->
   <section class="edu" id="hoc-van">
     <div class="wrap">
       <div class="head">
         <p class="eyebrow">Học vấn và chứng chỉ</p>
-        <h2>Nền tảng</h2>
+        <h2>Nền tảng <span class="hl">học vấn</span></h2>
       </div>
       <dl class="edu__list">
         <div class="edu__row">
@@ -285,11 +291,12 @@
     </div>
   </section>
 
+  <!-- 6. Lien he -->
   <section class="ct" id="lien-he">
     <div class="wrap ct__in">
       <div>
         <p class="eyebrow">Liên hệ</p>
-        <h2 class="ct__say">Cần người giữ cho hàng đi đúng lịch?</h2>
+        <h2 class="ct__say">Thông tin liên hệ</h2>
       </div>
       <dl class="ct__rows">
         <div><dt>Email</dt><dd><a href="mailto:haquyentran15@gmail.com">haquyentran15@gmail.com</a></dd></div>

@@ -51,9 +51,22 @@ h1, h2, h3 { margin: 0; font-weight: 700; letter-spacing: -0.025em; line-height:
   text-transform: uppercase;
 }
 
-.head { max-width: 42rem; margin-bottom: clamp(2.5rem, 5vw, 3.75rem); }
-.head h2 { font-size: clamp(1.7rem, 3.6vw, 2.6rem); }
-.head__note { margin: 1.1rem 0 0; color: var(--dim); font-size: 1rem; }
+main { counter-reset: sec; }
+.head { position: relative; max-width: 42rem; margin-bottom: clamp(2.5rem, 5vw, 3.75rem); }
+.tl .head, .cap .head, .rules .head, .edu .head { counter-increment: sec; }
+.tl .head::before, .cap .head::before, .rules .head::before, .edu .head::before {
+  content: counter(sec, decimal-leading-zero);
+  position: absolute; z-index: 0; top: -1.1rem; left: -0.15rem;
+  font-size: clamp(4rem, 11vw, 7.5rem); font-weight: 700; line-height: 1;
+  letter-spacing: -0.04em; color: transparent;
+  -webkit-text-stroke: 1.5px color-mix(in srgb, var(--dim) 45%, transparent);
+  opacity: 0.55; pointer-events: none;
+}
+.head .eyebrow { position: relative; z-index: 1; display: inline-flex; align-items: center; gap: 0.6rem; }
+.head .eyebrow::before { content: ""; display: inline-block; width: 1.3rem; height: 2px; background: var(--accent); }
+.head h2 { position: relative; z-index: 1; font-size: clamp(1.85rem, 4vw, 2.9rem); }
+.hl { color: var(--accent); }
+.head__note { position: relative; z-index: 1; margin: 1.1rem 0 0; color: var(--dim); font-size: 1rem; }
 
 /* ---- buttons ---- */
 .btn {
@@ -107,11 +120,29 @@ h1, h2, h3 { margin: 0; font-weight: 700; letter-spacing: -0.025em; line-height:
 .hero__cta { display: flex; flex-wrap: wrap; gap: 0.7rem; margin-top: 2.1rem; }
 
 .hero__fig { position: relative; margin: 0; order: -1; }
-.hero__fig img { width: 100%; border: 1px solid var(--line); }
+.hero__fig::before {
+  position: absolute; z-index: 0; content: "";
+  top: -12px; right: -12px; width: 58%; height: 44%;
+  border-top: 2px solid var(--accent); border-right: 2px solid var(--accent);
+  opacity: 0.85;
+}
+.hero__fig img {
+  position: relative; z-index: 1; width: 100%; border: 1px solid var(--line);
+  animation: heroGlow 4.5s ease-in-out infinite;
+}
 .hero__fig::after {
-  position: absolute; inset: 0; content: "";
+  position: absolute; z-index: 2; inset: 0; content: "";
   background: linear-gradient(180deg, transparent 72%, color-mix(in srgb, var(--ink) 30%, transparent) 100%);
   pointer-events: none;
+}
+.hero__cap {
+  position: relative; z-index: 1; display: flex; align-items: center; gap: 0.6rem; margin: 0.9rem 0 0;
+  color: var(--dim); font-size: 0.68rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase;
+}
+.hero__cap i { width: 1.5rem; height: 1px; background: var(--line); }
+@keyframes heroGlow {
+  0%, 100% { box-shadow: 0 0 0 1px var(--line), 0 0 22px -6px color-mix(in srgb, var(--accent) 35%, transparent); }
+  50% { box-shadow: 0 0 0 1px var(--line), 0 0 38px -2px color-mix(in srgb, var(--accent) 55%, transparent); }
 }
 @media (min-width: 48rem) { .quick { grid-template-columns: repeat(3, 1fr); } }
 @media (min-width: 60rem) { .hero__in { grid-template-columns: 1.2fr 0.8fr; } .hero__fig { order: 0; } }
@@ -160,7 +191,19 @@ h1, h2, h3 { margin: 0; font-weight: 700; letter-spacing: -0.025em; line-height:
   transform: translate3d(0, 0, 0); will-change: transform;
   filter: drop-shadow(0 8px 16px rgb(0 0 0 / 0.55));
 }
-.tl__car svg { display: block; }
+.tl__car svg { display: block; position: relative; z-index: 1; }
+
+/* headlight glow thrown in front of the truck, in its direction of travel */
+.tl__beam {
+  position: absolute; z-index: 0; top: 94px; left: 50%;
+  width: 54px; height: 170px; margin-left: -27px;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--accent) 60%, transparent) 0%, transparent 82%);
+  clip-path: polygon(30% 0%, 70% 0%, 100% 100%, 0% 100%);
+  filter: blur(5px); opacity: 0.75; mix-blend-mode: screen;
+  animation: beamPulse 2.1s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes beamPulse { 0%, 100% { opacity: 0.55; } 50% { opacity: 0.85; } }
 
 .tl__list { margin: 0; padding: 0; list-style: none; }
 
@@ -341,4 +384,6 @@ h1, h2, h3 { margin: 0; font-weight: 700; letter-spacing: -0.025em; line-height:
   .tl__car { display: none; }
   .tl__fill { transform: scaleY(1); }
   .stop .stop__dot { border-color: var(--accent); background: var(--accent); }
+  .hero__fig img { animation: none; }
+  .tl__beam { animation: none; opacity: 0.6; }
 }
