@@ -126,28 +126,41 @@ main { counter-reset: sec; }
 .hero__stage { position: relative; width: 100%; aspect-ratio: 1; }
 .hero__ring {
   position: absolute; inset: -5%; border-radius: 50%;
-  border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
-  box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 14%, transparent);
-  animation: heroRing 5.5s ease-in-out infinite;
+  border: 1px solid color-mix(in srgb, var(--accent) 28%, transparent);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 10%, transparent);
 }
-@keyframes heroRing {
-  0%, 100% { opacity: 0.5; box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 10%, transparent); }
-  50% { opacity: 0.85; box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 24%, transparent); }
+/* a single slow-rotating arc, like a signature progress ring around the photo */
+.hero__arc {
+  position: absolute; inset: -5%; border-radius: 50%;
+  background: conic-gradient(from 0deg, transparent 0 68%, var(--accent) 85%, var(--accent-dim) 93%, transparent 100%);
+  -webkit-mask: radial-gradient(circle, transparent 92%, #000 93%);
+  mask: radial-gradient(circle, transparent 92%, #000 93%);
+  filter: drop-shadow(0 0 6px color-mix(in srgb, var(--accent) 55%, transparent));
+  animation: heroSpin 11s linear infinite;
 }
+@keyframes heroSpin { to { transform: rotate(360deg); } }
 .hero__photo {
   position: absolute; inset: 0; margin: auto; width: 88%; aspect-ratio: 1; border-radius: 50%;
   overflow: hidden; border: 1px solid var(--line);
   animation: heroGlow 4.5s ease-in-out infinite;
 }
 .hero__photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 18%; }
-.hero__cap {
-  display: flex; align-items: center; gap: 0.6rem; margin: 0;
-  color: var(--dim); font-size: 0.68rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase;
-}
-.hero__cap i { width: 1.5rem; height: 1px; background: var(--line); }
 @keyframes heroGlow {
   0%, 100% { box-shadow: 0 0 0 1px var(--line), 0 0 22px -6px color-mix(in srgb, var(--accent) 35%, transparent); }
   50% { box-shadow: 0 0 0 1px var(--line), 0 0 38px -2px color-mix(in srgb, var(--accent) 55%, transparent); }
+}
+/* small verified-style badge pinned to the photo's edge */
+.hero__badge {
+  position: absolute; z-index: 2; right: 3%; bottom: 7%;
+  display: grid; place-items: center; width: 1.9rem; height: 1.9rem; border-radius: 50%;
+  background: var(--accent); color: var(--ink); border: 3px solid var(--ink-2);
+  box-shadow: 0 4px 10px rgb(0 0 0 / 0.4);
+}
+.hero__tags { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem; margin: 0; }
+.hero__tags span {
+  padding: 0.4rem 0.85rem; border: 1px solid var(--line); border-radius: 999px;
+  background: var(--ink-2); color: var(--dim); font-size: 0.64rem; font-weight: 600;
+  letter-spacing: 0.11em; text-transform: uppercase;
 }
 @media (min-width: 48rem) { .quick { grid-template-columns: repeat(3, 1fr); } }
 @media (min-width: 60rem) {
@@ -393,6 +406,6 @@ main { counter-reset: sec; }
   .tl__fill { transform: scaleY(1); }
   .stop .stop__dot { border-color: var(--accent); background: var(--accent); }
   .hero__photo { animation: none; }
-  .hero__ring { animation: none; }
+  .hero__arc { animation: none; }
   .tl__beam { animation: none; opacity: 0.6; }
 }
