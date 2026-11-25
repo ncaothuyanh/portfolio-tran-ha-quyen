@@ -85,7 +85,7 @@ h1,h2,h3{margin:0;font-weight:400}
 .hero__fig{position:relative;margin:0;order:-1}
 .hero__fig::before{position:absolute;inset:auto auto -14px -14px;width:52%;height:58%;
   border-left:1px solid var(--rule);border-bottom:1px solid var(--rule);content:"";pointer-events:none}
-.hero__fig img{width:100%;filter:grayscale(1) contrast(1.04)}
+.hero__fig img{position:relative;z-index:1;width:100%;filter:saturate(.95) contrast(1.03)}
 @media (min-width:60rem){
   .hero__grid{grid-template-columns:1.18fr .82fr}
   .hero__fig{order:0}
@@ -110,30 +110,6 @@ h1,h2,h3{margin:0;font-weight:400}
 .rule p{margin:.65rem 0 0;color:var(--ink-2);font-size:.94rem}
 @media (min-width:48rem){.rules__list{grid-template-columns:repeat(2,1fr)}}
 
-/* ---- 04 anh hien truong ---- */
-.plate{padding:0}
-.plate__fig{position:relative;margin:0}
-.plate__fig img{width:100%;max-height:min(62vh,30rem);object-fit:cover;object-position:50% 38%;filter:grayscale(1) contrast(1.05)}
-.plate__fig figcaption{position:absolute;left:0;right:0;bottom:0;padding:clamp(1rem,3vw,1.8rem) var(--gut);
-  background:linear-gradient(to top,rgb(10 12 14 / .62),transparent)}
-.plate__fig figcaption span{display:block;width:min(var(--page),100%);margin-inline:auto;
-  color:#fff;font-size:.68rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase}
-
-/* ---- 05 kinh nghiem ---- */
-.exp{padding:clamp(3.5rem,7vw,6rem) 0}
-.rec{border-top:1px solid var(--rule)}
-.rec__row{display:grid;gap:.85rem clamp(1.5rem,4vw,3rem);padding:clamp(1.75rem,3.4vw,2.6rem) 0;
-  border-bottom:1px solid var(--line);grid-template-columns:1fr}
-.rec__when{display:flex;align-items:center;gap:.6rem;font-family:var(--serif);font-size:1.18rem;font-weight:600;color:var(--navy)}
-.rec__when i{width:1.4rem;height:1px;background:var(--rule)}
-.rec__who h3{font-family:var(--serif);font-size:clamp(1.35rem,2.4vw,1.72rem);font-weight:600;line-height:1.18}
-.rec__who p{margin:.28rem 0 0;color:var(--ink-2);font-size:.9rem}
-.rec__what{margin:0;padding:0;list-style:none}
-.rec__what li{position:relative;padding-left:1.15rem;color:var(--ink-2);font-size:.94rem}
-.rec__what li+li{margin-top:.48rem}
-.rec__what li::before{position:absolute;top:.72em;left:0;width:7px;height:1px;background:var(--navy);content:""}
-@media (min-width:62rem){.rec__row{grid-template-columns:9.5rem 15rem 1fr;align-items:start}}
-
 /* ---- 06 nang luc ---- */
 .skill{padding:clamp(3.5rem,7vw,6rem) 0;border-top:1px solid var(--line);background:var(--paper-2)}
 .skill__grid{display:grid;gap:1px;border:1px solid var(--line);background:var(--line);grid-template-columns:1fr}
@@ -145,22 +121,6 @@ h1,h2,h3{margin:0;font-weight:400}
 .skill__col li+li{margin-top:.55rem}
 .skill__col li::before{position:absolute;top:.72em;left:0;width:7px;height:1px;background:var(--navy);content:""}
 @media (min-width:48rem){.skill__grid{grid-template-columns:repeat(2,1fr)}}
-
-/* ---- 07 hoc van ---- */
-.edu{padding:clamp(3.5rem,7vw,6rem) 0}
-.edu__grid{display:grid;gap:clamp(2rem,5vw,3.5rem);grid-template-columns:1fr}
-.edu__list{margin:0;border-top:1px solid var(--rule)}
-.edu__list>div{display:grid;gap:.2rem;padding:1.15rem 0;border-bottom:1px solid var(--line)}
-.edu__list dt{font-size:1rem;font-weight:600}
-.edu__list dd{margin:0;color:var(--ink-2);font-size:.92rem}
-.edu__list p{margin:.15rem 0 0;color:var(--ink-2);font-size:.74rem;font-weight:600;letter-spacing:.08em}
-.edu__fig{margin:0}
-.edu__fig img{width:100%;filter:grayscale(1) contrast(1.04)}
-@media (min-width:58rem){
-  .edu__grid{grid-template-columns:1.25fr .75fr;align-items:start}
-  .edu__list>div{grid-template-columns:14rem 1fr 8rem;gap:.2rem 1.5rem;align-items:baseline}
-  .edu__list p{text-align:right}
-}
 
 /* ---- 08 lien he ---- */
 .ct{padding:clamp(3.5rem,7vw,6rem) 0;background:var(--navy);color:#fff}
@@ -186,4 +146,61 @@ h1,h2,h3{margin:0;font-weight:400}
   html{scroll-behavior:auto}
   .js .r{opacity:1;transform:none;transition:none}
   .btn,.bar__nav a,.bar__nav a::after,.bar__cta,.ct__rows a{transition:none}
+}
+
+/* ---- hero: khoi mau lech sau anh lam diem nhan ---- */
+.hero__fig{position:relative}
+.hero__block{position:absolute;z-index:0;right:-14px;top:26px;bottom:52px;left:34%;
+  background:var(--navy);content:""}
+.hero__fig::before{display:none}
+.hero__fig figcaption{position:relative;z-index:1;display:flex;align-items:center;gap:.6rem;
+  margin-top:.85rem;color:var(--ink-2);font-size:.64rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase}
+.hero__fig figcaption i{width:1.6rem;height:1px;background:var(--rule)}
+
+/* ---- cau noi lon: diem nhan chu ---- */
+.pull{padding:clamp(3.5rem,8vw,6.5rem) 0;border-top:1px solid var(--line);background:var(--paper-2)}
+.pull__q{position:relative;max-width:30ch;margin:0 auto;padding-top:1.2rem;
+  font-family:var(--serif);font-weight:500;line-height:1.2;letter-spacing:-.014em;
+  font-size:clamp(1.65rem,4.6vw,3.1rem);text-align:center;text-wrap:balance}
+.pull__q em{font-style:normal;color:var(--navy);
+  background-image:linear-gradient(var(--navy),var(--navy));
+  background-size:100% 1px;background-position:0 94%;background-repeat:no-repeat}
+.pull__mark{position:absolute;top:-.32em;left:50%;transform:translateX(-50%);
+  font-family:var(--serif);font-size:clamp(4rem,9vw,6.5rem);line-height:1;color:var(--navy);opacity:.17}
+
+/* ---- dong thoi gian: hoc tap va cong viec ---- */
+.tl{padding:clamp(3.5rem,7vw,6rem) 0;border-top:1px solid var(--line)}
+.tl__list{position:relative;margin:0;padding:0;list-style:none}
+.tl__list::before{position:absolute;top:.6rem;bottom:2.5rem;left:7px;width:1px;background:var(--line);content:""}
+.tl__it{position:relative;padding:0 0 clamp(2.4rem,5vw,3.6rem) 2.4rem}
+.tl__it:last-child{padding-bottom:0}
+.tl__it::before{position:absolute;left:0;top:.42rem;width:15px;height:15px;border-radius:50%;
+  border:1.5px solid var(--navy);background:var(--paper);content:""}
+.tl__it.is-lam::before{background:var(--navy)}
+.tl__it.is-moc::before{width:9px;height:9px;left:3px;top:.62rem;border-color:var(--rule);background:var(--paper-2)}
+.tl__it.is-nay::before{box-shadow:0 0 0 5px var(--navy-soft)}
+.tl__yr{display:flex;align-items:center;gap:.55rem;margin-bottom:.45rem;
+  font-family:var(--serif);font-size:clamp(1.5rem,3.2vw,2.1rem);font-weight:600;color:var(--navy);line-height:1}
+.tl__yr i{width:1.3rem;height:1px;background:var(--rule)}
+.tl__tag{margin:0 0 .5rem;color:var(--ink-2);font-size:.6rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase}
+.tl__it.is-lam .tl__tag{color:var(--navy)}
+.tl__body h3{font-family:var(--serif);font-size:clamp(1.35rem,2.6vw,1.8rem);font-weight:600;line-height:1.18}
+.tl__org{margin:.3rem 0 0;color:var(--ink-2);font-size:.9rem}
+.tl__txt{margin:.75rem 0 0;max-width:52ch;color:var(--ink-2);font-size:.94rem}
+.tl__ul{margin:.85rem 0 0;padding:0;list-style:none;max-width:54ch}
+.tl__ul li{position:relative;padding-left:1.15rem;color:var(--ink-2);font-size:.94rem}
+.tl__ul li+li{margin-top:.46rem}
+.tl__ul li::before{position:absolute;top:.72em;left:0;width:7px;height:1px;background:var(--navy);content:""}
+.tl__fig{margin:1.3rem 0 0;max-width:34rem;overflow:hidden;border:1px solid var(--line)}
+.tl__fig img{width:100%;aspect-ratio:16/10;object-fit:cover;filter:saturate(.95) contrast(1.03);
+  transition:transform .9s cubic-bezier(.22,1,.36,1)}
+.tl__it:hover .tl__fig img{transform:scale(1.03)}
+
+@media (min-width:60rem){
+  .tl__list::before{left:9.5rem}
+  .tl__it{display:grid;grid-template-columns:8.2rem 1fr;gap:0 3.2rem;padding-left:0}
+  .tl__it::before{left:calc(9.5rem - 7px)}
+  .tl__it.is-moc::before{left:calc(9.5rem - 4px)}
+  .tl__yr{flex-direction:column;align-items:flex-start;gap:.15rem;text-align:left;margin:0}
+  .tl__yr i{width:1.5rem}
 }
