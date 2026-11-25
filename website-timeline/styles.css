@@ -124,23 +124,38 @@ main { counter-reset: sec; }
   align-items: center; gap: 1rem; width: min(22rem, 74vw);
 }
 .hero__stage { position: relative; width: 100%; aspect-ratio: 1; }
+/* soft ambient glow breathing behind the whole avatar */
+.hero__halo {
+  position: absolute; z-index: 0; inset: -22%; border-radius: 50%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--accent) 38%, transparent) 0%, transparent 68%);
+  filter: blur(18px);
+  animation: heroHalo 4.2s ease-in-out infinite;
+}
+@keyframes heroHalo { 0%, 100% { opacity: 0.45; } 50% { opacity: 0.95; } }
 .hero__ring {
-  position: absolute; inset: -5%; border-radius: 50%;
-  border: 1px solid color-mix(in srgb, var(--accent) 28%, transparent);
-  box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 10%, transparent);
+  position: absolute; z-index: 1; inset: -5%; border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--accent) 32%, transparent);
+  animation: heroRingGlow 4.2s ease-in-out infinite;
+}
+@keyframes heroRingGlow {
+  0%, 100% { box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 10%, transparent), 0 0 10px -2px color-mix(in srgb, var(--accent) 30%, transparent); }
+  50% { box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 28%, transparent), 0 0 22px 0px color-mix(in srgb, var(--accent) 60%, transparent); }
 }
 /* a single slow-rotating arc, like a signature progress ring around the photo */
 .hero__arc {
-  position: absolute; inset: -5%; border-radius: 50%;
+  position: absolute; z-index: 1; inset: -5%; border-radius: 50%;
   background: conic-gradient(from 0deg, transparent 0 68%, var(--accent) 85%, var(--accent-dim) 93%, transparent 100%);
   -webkit-mask: radial-gradient(circle, transparent 92%, #000 93%);
   mask: radial-gradient(circle, transparent 92%, #000 93%);
-  filter: drop-shadow(0 0 6px color-mix(in srgb, var(--accent) 55%, transparent));
-  animation: heroSpin 11s linear infinite;
+  animation: heroSpin 11s linear infinite, heroArcGlow 3.2s ease-in-out infinite;
 }
 @keyframes heroSpin { to { transform: rotate(360deg); } }
+@keyframes heroArcGlow {
+  0%, 100% { filter: drop-shadow(0 0 5px color-mix(in srgb, var(--accent) 45%, transparent)); }
+  50% { filter: drop-shadow(0 0 14px color-mix(in srgb, var(--accent) 85%, transparent)); }
+}
 .hero__photo {
-  position: absolute; inset: 0; margin: auto; width: 88%; aspect-ratio: 1; border-radius: 50%;
+  position: absolute; z-index: 2; inset: 0; margin: auto; width: 88%; aspect-ratio: 1; border-radius: 50%;
   overflow: hidden; border: 1px solid var(--line);
   animation: heroGlow 4.5s ease-in-out infinite;
 }
@@ -151,16 +166,10 @@ main { counter-reset: sec; }
 }
 /* small verified-style badge pinned to the photo's edge */
 .hero__badge {
-  position: absolute; z-index: 2; right: 3%; bottom: 7%;
+  position: absolute; z-index: 3; right: 3%; bottom: 7%;
   display: grid; place-items: center; width: 1.9rem; height: 1.9rem; border-radius: 50%;
   background: var(--accent); color: var(--ink); border: 3px solid var(--ink-2);
   box-shadow: 0 4px 10px rgb(0 0 0 / 0.4);
-}
-.hero__tags { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem; margin: 0; }
-.hero__tags span {
-  padding: 0.4rem 0.85rem; border: 1px solid var(--line); border-radius: 999px;
-  background: var(--ink-2); color: var(--dim); font-size: 0.64rem; font-weight: 600;
-  letter-spacing: 0.11em; text-transform: uppercase;
 }
 @media (min-width: 48rem) { .quick { grid-template-columns: repeat(3, 1fr); } }
 @media (min-width: 60rem) {
@@ -407,5 +416,7 @@ main { counter-reset: sec; }
   .stop .stop__dot { border-color: var(--accent); background: var(--accent); }
   .hero__photo { animation: none; }
   .hero__arc { animation: none; }
+  .hero__ring { animation: none; }
+  .hero__halo { animation: none; opacity: 0.6; }
   .tl__beam { animation: none; opacity: 0.6; }
 }
