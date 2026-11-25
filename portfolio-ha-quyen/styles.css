@@ -78,28 +78,24 @@ h1,h2,h3{margin:0;font-weight:700;letter-spacing:-.028em;line-height:1.08;text-w
   background:linear-gradient(135deg,var(--paper),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent}
 .hero__cta{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:2.2rem}
 
-/* avatar la diem nhan: hai vong xoay nguoc chieu + anh tron + chip noi */
-.avatar{position:relative;margin:0;display:grid;place-items:center;
-  width:min(21rem,78vw);aspect-ratio:1;justify-self:center}
-.avatar__ring{position:absolute;inset:0;border-radius:50%;
-  background:conic-gradient(from 0deg,transparent 0 58%,var(--accent) 72%,var(--accent-2) 84%,transparent 96%);
-  -webkit-mask:radial-gradient(circle,transparent 61%,#000 62%);mask:radial-gradient(circle,transparent 61%,#000 62%);
-  animation:spin 14s linear infinite}
-.avatar__ring--2{inset:-7%;opacity:.4;
-  background:conic-gradient(from 180deg,transparent 0 64%,var(--accent-2) 78%,transparent 92%);
-  -webkit-mask:radial-gradient(circle,transparent 66%,#000 67%);mask:radial-gradient(circle,transparent 66%,#000 67%);
-  animation:spin 22s linear infinite reverse}
-@keyframes spin{to{transform:rotate(360deg)}}
-.avatar__photo{position:relative;width:78%;aspect-ratio:1;border-radius:50%;overflow:hidden;
-  border:1px solid var(--line);box-shadow:0 26px 60px rgb(0 0 0/.55);animation:float 7s ease-in-out infinite}
+/* avatar: mot vong vien tinh, mot anh tron co dinh, nhan chuyen mon xep gon ben duoi */
+.avatar{position:relative;margin:0;display:flex;flex-direction:column;align-items:center;
+  gap:1.15rem;width:min(21rem,78vw);justify-self:center}
+.avatar__stage{position:relative;width:100%;aspect-ratio:1}
+.avatar__ring{position:absolute;inset:-5%;border-radius:50%;
+  border:1px solid color-mix(in srgb,var(--accent) 40%,transparent);
+  box-shadow:0 0 0 1px color-mix(in srgb,var(--accent) 14%,transparent);
+  animation:ringGlow 5.5s ease-in-out infinite}
+@keyframes ringGlow{
+  0%,100%{opacity:.5;box-shadow:0 0 0 1px color-mix(in srgb,var(--accent) 10%,transparent)}
+  50%{opacity:.85;box-shadow:0 0 0 1px color-mix(in srgb,var(--accent) 24%,transparent)}
+}
+.avatar__photo{position:absolute;inset:0;margin:auto;width:86%;aspect-ratio:1;border-radius:50%;overflow:hidden;
+  border:1px solid var(--line);box-shadow:0 26px 60px rgb(0 0 0/.55)}
 .avatar__photo img{width:100%;height:100%;object-fit:cover;object-position:50% 22%}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-11px)}}
-.avatar__chip{position:absolute;padding:.42rem .8rem;border:1px solid var(--line);border-radius:999px;
-  background:color-mix(in srgb,var(--ink-2) 88%,transparent);backdrop-filter:blur(8px);
-  font-size:.66rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap}
-.avatar__chip--a{top:6%;left:-2%;animation:float 6s ease-in-out infinite}
-.avatar__chip--b{top:46%;right:-6%;animation:float 8s ease-in-out .6s infinite}
-.avatar__chip--c{bottom:7%;left:4%;animation:float 7s ease-in-out 1.2s infinite}
+.avatar__tags{display:flex;flex-wrap:wrap;justify-content:center;gap:.5rem;margin:0;padding:0}
+.avatar__tags span{padding:.4rem .85rem;border:1px solid var(--line);border-radius:999px;
+  background:var(--ink-2);color:var(--dim);font-size:.64rem;font-weight:600;letter-spacing:.11em;text-transform:uppercase}
 @media (min-width:62rem){
   .hero__in{grid-template-columns:1.1fr .9fr}
   .avatar{width:min(26rem,40vw)}
@@ -203,7 +199,7 @@ h1,h2,h3{margin:0;font-weight:700;letter-spacing:-.028em;line-height:1.08;text-w
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   .js .reveal{opacity:1;transform:none;transition:none}
-  .avatar__ring,.avatar__ring--2,.avatar__photo,.avatar__chip{animation:none}
+  .avatar__ring{animation:none}
   .truck{display:none}
   .btn,.card,.cap__col,.card__fig img,.stop__dot,.card__year,.ct__rows a,.bar__nav a::after{transition:none}
   .stop .stop__dot{border-color:var(--accent);background:var(--accent)}
