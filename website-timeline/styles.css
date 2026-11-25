@@ -116,6 +116,23 @@ h1, h2, h3 { margin: 0; font-weight: 700; letter-spacing: -0.025em; line-height:
 @media (min-width: 48rem) { .quick { grid-template-columns: repeat(3, 1fr); } }
 @media (min-width: 60rem) { .hero__in { grid-template-columns: 1.2fr 0.8fr; } .hero__fig { order: 0; } }
 
+/* ---- gioi thieu ---- */
+.intro { padding: clamp(3rem, 6vw, 5rem) 0; border-top: 1px solid var(--line); }
+.intro__grid { display: grid; gap: 1rem clamp(2rem, 5vw, 4rem); grid-template-columns: 1fr; }
+.intro__body p { margin: 0 0 1rem; color: var(--dim); }
+.intro__body p:last-child { margin-bottom: 0; }
+.intro__body .lede { font-size: clamp(1.2rem, 2.4vw, 1.6rem); font-weight: 600; line-height: 1.4; color: var(--paper); }
+@media (min-width: 52rem) { .intro__grid { grid-template-columns: 14rem 1fr; } }
+
+/* ---- nguyen tac lam viec ---- */
+.rules { padding: clamp(3.5rem, 7vw, 6rem) 0; border-top: 1px solid var(--line); background: var(--ink-2); }
+.rules__list { display: grid; gap: 1px; margin: 0; padding: 0; border: 1px solid var(--line); background: var(--line); grid-template-columns: 1fr; list-style: none; }
+.rule { position: relative; padding: clamp(1.5rem, 3vw, 2.2rem); background: var(--ink); }
+.rule__n { display: block; margin-bottom: 1rem; font-size: 2.1rem; font-weight: 700; line-height: 1; color: var(--accent); opacity: .55; }
+.rule h3 { font-size: 1.06rem; }
+.rule p { margin: .65rem 0 0; color: var(--dim); font-size: .94rem; line-height: 1.6; }
+@media (min-width: 48rem) { .rules__list { grid-template-columns: repeat(2, 1fr); } }
+
 /* ---- timeline ---- */
 .tl { padding: clamp(3.5rem, 8vw, 6.5rem) 0; border-top: 1px solid var(--line); background: var(--ink-2); }
 
